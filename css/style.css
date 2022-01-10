@@ -107,9 +107,114 @@ header div img {
   color: #f38181;
 }
 
+.section-4 {
+  display: flex;
+  justify-content: center;
+}
+.section-4 div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+.section-4 div h1 {
+  margin: 1em 0;
+}
+.section-4 div p {
+  margin: 1em 0;
+}
+.section-4 div table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  text-align: center;
+}
+.section-4 div table td {
+  border: 1px solid gray;
+  padding: 10px 0;
+}
+.section-4 div table .td-noborder {
+  border-style: hidden !important;
+}
+.section-4 div table .td-red {
+  background-color: #f38181;
+}
+.section-4 div table .td-gray {
+  background-color: #5d5656;
+}
+.section-4 div .btn-check-prices {
+  display: none;
+}
+
+.section-5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+  background-color: #f3f7f9;
+}
+.section-5 .iframe-form {
+  width: 72%;
+  display: flex;
+  justify-content: space-between;
+}
+.section-5 .iframe-form iframe {
+  margin: 1em;
+}
+.section-5 .iframe-form .contact-form {
+  margin: 1em;
+  width: 70%;
+  height: 13em;
+  background-color: #f38181;
+}
+.section-5 .iframe-form .contact-form form div {
+  margin: 1em;
+  height: 2.5em;
+}
+.section-5 .iframe-form form .gender-and-name {
+  display: flex;
+  justify-content: space-between;
+}
+.section-5 .iframe-form form .gender-and-name select {
+  width: 20%;
+}
+.section-5 .iframe-form form .gender-and-name input {
+  width: 70%;
+}
+.section-5 .iframe-form form .email > * {
+  width: 100%;
+  height: 100%;
+}
+.section-5 .iframe-form form textarea {
+  width: 100%;
+}
+
+footer {
+  font-size: 1.6rem;
+  width: 100%;
+  height: 35px;
+  color: white;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer p span {
+  color: red;
+}
+
 @media screen and (max-width: 950px) {
   .section-3 .img-text-row .img-text-box {
     width: 80%;
+  }
+
+  .section-5 .iframe-form {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .section-5 .iframe-form .contact-form {
+    width: 100%;
   }
 }
 @media screen and (max-width: 650px) {
@@ -170,6 +275,21 @@ header div img {
   }
   .section-3 .img-text-row .fin-two div p {
     text-align: center;
+  }
+
+  .section-4 table {
+    display: none;
+  }
+  .section-4 div .btn-check-prices {
+    display: flex;
+    justify-content: center;
+  }
+  .section-4 div .btn-check-prices button {
+    margin: 0 1em;
+    padding: 1em 2em;
+    border-radius: 25px;
+    font-size: 12px;
+    cursor: pointer;
   }
 }
 

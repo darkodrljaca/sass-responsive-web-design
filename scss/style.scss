@@ -104,11 +104,120 @@ header {
   }
 }
 
+.section-4 {
+  @include children-positions(center);
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    h1 {
+      margin: 1em 0;
+    }
+    p {
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      text-align: center;
+      td {
+        border: 1px solid gray;
+        padding: 10px 0;
+      }
+      .td-noborder {
+        border-style: hidden !important;
+      }
+      .td-red {
+        background-color: $red_color;
+      }
+      .td-gray {
+        background-color: #5d5656;
+      }
+    }
+    .btn-check-prices {
+      display: none;
+    }
+  }
+}
+
+.section-5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+  background-color: $light_grey_2_color;
+  .iframe-form {
+    width: 72%;
+    @include children-positions(space-between);
+    iframe {
+      margin: 1em;
+    }
+    .contact-form {
+      margin: 1em;
+      width: 70%;
+      height: 13em;
+      background-color: $red_color;
+      form {
+        div {
+          margin: 1em;
+          height: 2.5em;
+        }
+      }
+    }
+    form {
+      .gender-and-name {
+        display: flex;
+        justify-content: space-between;
+        select {
+          width: 20%;
+        }
+        input {
+          width: 70%;
+        }
+      }
+      .email > * {
+        width: 100%;
+        height: 100%;
+      }
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+}
+
+footer {
+  font-size: 1.6rem;
+  width: 100%;
+  height: 35px;
+  color: white;
+  background-color: gray;
+  @include children-positions(center);
+  align-items: center;
+  p {
+    span {
+      color: red;
+    }
+  }
+}
+
 @include tablet {
   .section-3 {
     .img-text-row {
       .img-text-box {
         width: 80%;
+      }
+    }
+  }
+  .section-5 {
+    .iframe-form {
+      flex-wrap: wrap;
+      justify-content: center;
+      .contact-form {
+        width: 100%;
       }
     }
   }
@@ -169,6 +278,25 @@ header {
           p {
             text-align: center;
           }
+        }
+      }
+    }
+  }
+
+  .section-4 {
+    table {
+      display: none;
+    }
+    div {
+      .btn-check-prices {
+        display: flex;
+        justify-content: center;
+        button {
+          margin: 0 1em;
+          padding: 1em 2em;
+          border-radius: 25px;
+          font-size: 12px;
+          cursor: pointer;
         }
       }
     }
