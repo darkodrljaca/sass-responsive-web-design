@@ -1,0 +1,321 @@
+1. display:
+    block
+    inline-block
+    inline
+    none
+    * flex
+        flex-direction: column; // default je row
+        align-items: center; // centriraj child elemente koji su u koloni 
+        flex-direction: row-reverse; // efekat ogledala
+        justify-content: center; // centriraj child elemente
+        justify-content: flex-end; // vodoravne child elemente baci na desnu stranu
+        justify-content: space-between; // razmak izmedju elemenata (ali ne i razmak izmedju marigna i elementa)
+        justify-content: space-around; //  razmak izmedju elemenata (ali nije isti razmak izmedju elemenata i margina sa 
+                                       //    razmakom izmedju samih elemenata)  
+        justify-content: space-evenly; // Razmaci su jednaki i izmedju margina, kao i izmedju samih elemenata. 
+        flex-wrap: wrap; // child elemenat koji ne moze da stane, ide u NOVI RED
+        align-content: flex-start; // kada elementi predju u novi red zbog nendostatka prostora, ovo sluzi da ne 
+                                   // bude praznog prostora izmedju redova.
+        align-items: baseline; // poravnanje tekstova koji se nalaze u razlicitim child elementima (row)  
+
+        ------------------
+        child elemenat:
+           order: 1; // odredjivanje rasporeda elemenata; 
+           order: 2  // ovaj child elemenat ce idi desno u odnosu na child sa vrednoscu order: 1
+           flex-grow: 1; // ovaj child elemenat ce zauzeti sav ostali slobodan prostor
+                         // ako oba child elementa (row) imaju flex-grow: 1 bice iste velicine
+           flex-grow: 2; // ovaj child je 2 x veci od child-a koji je flex-grow: 1
+           flex-shrink: 2 // ovaj child je duplo manji od nekog drugogo child elementa
+           flex-basis: 100px // ovo je isto kao i width: 100px
+           align-self: center // ovaj child elemenat je centriran
+           align-self: flex-end // ovaj child elemenat je dole desno
+
+2.position:
+   static - podrazumevano
+   relative
+   absolute
+   fixed	
+-----------------------------------------------------------------------------------------------------------------------------------
+SASS:
+
+1. Nasledjivanje selektora:
+.link {
+   text-decoration: none;
+}
+.red-link {
+   @extend .link;
+   color: #f00;
+}
+Nasledjivanje vise selektora:
+.message {
+   padding: .5em;
+}
+.important {
+   font-weight: bold;
+}
+.message-error {
+   @extend .message, .important;
+   color: #f00;
+}
+napomena: ugnjezdeni selektori se ne mogu naslediti.
+
+2. Placeholder selektori (abstraktne klase):
+
+%inline-block {
+   display: inline-block;
+   vertical-align: baseline;
+}
+.btn {
+   @extend %inline-block;
+   padding: 0.5em 1em;
+}
+.foo {
+   @extend %inline-block;
+   collor: red;
+}
+
+2. Mixini:
+@mixin hover-effect {
+   -webkit-transition: background-color 200ms;
+      -moz-transition: background-color 200ms;
+        -o-transition: background-color 200ms;
+           transition: background-color 200ms;
+}
+.button {
+   @include hover-effect;
+}
+----------
+@mixin hover-effect($speed, $speed_1) {
+   -webkit-transition: background-color $speed;
+      -moz-transition: background-color $speed;
+        -o-transition: background-color $speed;
+           transition: background-color $speed_1;
+}
+.button {
+   @include hover-effect(200ms, 300ms);
+}
+----------
+@content direktiva:
+@mixin button {
+   display: block;
+   font-size: 20px;
+   text-decoration: none;
+   @content;
+}
+
+@include button {
+ color: #F00;
+}
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+Sistemi za kontrolu verzija - Git
+
+git --version
+
+Nakon instalacije, dobra praksa je da se odmah podesi naše
+ime i email adresa koje će Git koristiti prilikom čuvanja izmena:
+git config --global user.name "Ime Prezime"
+git config --global user.email mojemail@nesto.com
+
+
+Lista trenutno podešenih vrednosti se može dobiti komandom:
+git config --list
+
+Novi prazan Git repozitorijum kreiramo komandom: 
+git init
+
+git status
+
+Ukoliko se uključujemo u već postojeći projekat, lokalnu kopiju
+repozitorijuma kreiramo komandom git clone:
+git clone https://github.com/sass/sass.git
+
+Ukoliko želimo da se radni direktorijum zove drugačije, ime
+navodimo posle URL-a repozitorijuma:
+git clone https://github.com/sass/sass.git drugi-folder
+
+
+Pokretanje praćenja verzija nad nekom datotekom ili
+direktorijumom se vrši komandom git add:
+git add index.html
+git add images
+git add css/*.scss
+
+Dodavanje svih izmena iz radnog direktorijuma odjednom može
+se obaviti komandom:
+git add .
+
+Dodavanje 
+
+
+Ovo će spremiti sve naše izmene u lokalnom git repozitorijumu
+zajedno sa porukom koja treba da prati svaki commit:
+git commit -m "Završio sam novi footer."
+
+Pregled istorija commit-ova:
+git log
+
+Uobičajeni koraci:
+git add .
+git commit -m "Poruka"
+git push origin master
+
+Ignorisanje datoteka - napravimo fajl:
+.gitignore
+
+Brisanje datoteke (iz radnog direktorijuma i iz staging area) se vrši komandom:
+git rm
+
+
+Brisanje izmenjenih datoteka je moguće dodavanjem opcije -f.
+git rm images/temp_banner.png
+git rm -f footer.html
+
+
+Ukoliko želimo da uklonimo datoteku iz staging area, ali tako da
+ona ostane u radnom direktorijumu, treba da komandi git rm
+dodamo opciju --cached u komandu za uklanjanje datoteka.
+Ovo će samo isključiti praćenje verzija nad datotekom
+(poništavanje git add nad datotekom).
+Vrlo korisna opcija ukoliko smo počeli da pratimo neki neželjeni
+fajl (zaboravili da ga ignorišemo).
+Komanda:
+git rm --cached css/style.css
+
+Dopuna prethodnog commit-a novim izmenama:
+git commit –amend
+
+Vraćanje datoteke u unmodified stanje (poslednji commit ili
+clone):
+git checkout -- index.html
+
+Ukoliko želimo da se prebacimo u stanje određenog commit-a,
+koristimo git checkout.
+Ovo će sačuvati svu istoriju, tako da se uvek možemo vratiti gde
+smo stali (ili negde drugde):
+git checkout 0d1d7fc32
+
+Poništavanje izmena
+Ako imamo potrebu da se vratimo u stanje zabeleženo nekim
+prošlim commit-om, i pri tome obrišemo svu istoriju nastalu posle
+toga koristimo git reset komandu:
+git reset --hard 0d1d7fc32
+
+Vraćanje spremljenih izmena se vrši komandom git stash apply.
+Ovo će vratiti poslednje spremljeno stanje (sa vrha liste).
+Vraćanje određenih izmena je moguće navođenjem imena pod
+kojih su snimljene:
+git stash apply stash@{2}
+
+Grane se kreiraju komandom git branch:
+git branch develop
+
+Pregled svih grana možemo dobiti istom komandom:
+git branch -v
+
+Prebacivanje između grana se vrši na sledeći način:
+git checkout develop
+Prelazak na granu menja sadržaj radnog direktorijuma tako da
+on odgovara poslednjem commit-u u toj grani. Ukoliko želimo
+da sačuvamo izmene, potrebno je uraditi commit na grani koju
+napuštamo.
+
+Spajanje grana
+Prilikom spajanja, potrebno je vratiti se na roditeljsku granu i
+pozvati komandu git merge:
+git checkout master
+git merge develop
+
+Brisanje grane vrši se dodavanjem opcije -d naredbi git
+branch:
+git branch -d develop
+
+
+Primer sa rebase-a develop grane:
+Mi smo trenutno na develop grani. U medjuvremenu na mster grani se nesto promenilo.
+Mi sad hocemo da dopunimo develop granu
+git checkout develop
+git rebase master
+
+
+Udaljene grane
+Sve kreirane grane se nalaze na lokalnom repozitorijumu.
+Ukoliko želimo da objavimo našu granu (develop) na
+udaljenom serveru koristimo sledeću naredbu:
+git push origin develop
+
+Konfilkti
+...
+
+
+Udaljeni repozitorijumi
+Ovo će registrovati udaljeni server sa te adrese pod nazivom origin
+git remote add origin http://nasserver.git
+
+ovo ime navodimo prilikom slanja izmena
+git push origin master
+
+Izbaciti remote nekinaziv:
+git remove remote nekinaziv
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Primeri:
+
+// background color
+.section-1 {
+  background: url("../slike/intro.jpg");
+  height: 40em;
+  background-size: cover;
+}
+
+// img cyrcle:
+img {
+        width: 8em;
+        height: 8em;
+        border-radius: 50%;
+      }
+
+// img transforme on hover:
+img {
+        width: 80%;
+        height: 80%;
+        transition: transform 1s;
+      }
+      img:hover {
+        transform: scale(1.5);
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+           
+              
+
+
+           
+
+
